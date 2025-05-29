@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="UTF-8">
+  <title>Sticker Generator</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-bottom: 20px;
+    }
+
+    input, button {
+      padding: 5px;
+      font-size: 14px;
+    }
+
+    .sticker {
+      width: 137px;
+      height: 225px;
+      background: #fccc2c;
+      padding-top: 5px;
+      padding-bottom: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .sticker img {
+      width: 80px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 10px;
+      background: #d9d9d9;
+      margin-bottom: 4px;
+    }
+
+    .main-text {
+      font-size: 10px;
+      text-align: center;
+      margin-top: 1px;
+    }
+
+    .line {
+      width: 127px;
+      height: 1px;
+      background-color: black;
+      border-radius: 10px;
+    }
+
+    .sub-text {
+      font-size: 5px;
+      text-align: center;
+      margin-bottom: 1px;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@pdf-lib/fontkit@0.0.4/dist/fontkit.umd.min.js"></script>
+  <script src="script.js"></script>
+</head>
+<body>
+
+  <h2>Acess Card Sticker Generator</h2>
+
+  <form id="sticker-form">
+    <input type="text" placeholder="Vārds Uzvārds" id="vards" required>
+    <input type="text" placeholder="Personas kods" id="personasKods" required>
+    <input type="text" placeholder="Amats" id="amats" required>
+    <input type="text" placeholder="Darba līguma Nr." id="ligumaNumurs" required>
+    <input type="date" id="ligumaDatums" required>
+    <input type="file" id="foto" accept="image/*" required>
+    <button type="submit">Create Sticker</button>
+  </form>
+
+  <div id="preview-container"></div>
+
+  <button id="download" style="margin-top: 20px;">Download as PDF</button>
+</body>
+</html>
