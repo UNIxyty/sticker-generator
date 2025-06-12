@@ -112,18 +112,35 @@ document.addEventListener("DOMContentLoaded", () => {
         embeddedImage = await pdfDoc.embedJpg(imgBytes);
       }
   
-      const imgWidth = 80;
-      const imgHeight = 100;
-      const imgX = (pageWidth - imgWidth) / 2;
-      const imgY = pageHeight - imgHeight - 5;
-  
+      const containerWidth = 80;
+      const containerHeight = 100;
+      const containerX = (pageWidth - containerWidth) / 2;
+      const containerY = pageHeight - containerHeight - 8; // немного больше отступ снизу
+      const imgDims = embeddedImage.scale(1);
+      const imgRatio = imgDims.width / imgDims.height;
+      const containerRatio = containerWidth / containerHeight;
+      let drawWidth, drawHeight;
+
+      if (imgRatio > containerRatio) {
+        // Image is wider — fit height, crop sides
+        drawHeight = containerHeight;
+        drawWidth = imgDims.width * (containerHeight / imgDims.height);
+      } else {
+        // Image is taller — fit width, crop top/bottom
+        drawWidth = containerWidth;
+        drawHeight = imgDims.height * (containerWidth / imgDims.width);
+      }
+
+      const offsetX = containerX - (drawWidth - containerWidth) / 2;
+      const offsetY = containerY - (drawHeight - containerHeight) / 2;
+
       page.drawImage(embeddedImage, {
-        x: imgX,
-        y: imgY,
-        width: imgWidth,
-        height: imgHeight,
+        x: offsetX,
+        y: offsetY,
+        width: drawWidth,
+        height: drawHeight,
       });
-  
+        
       function drawLine(y) {
         page.drawLine({
           start: { x: 5, y },
