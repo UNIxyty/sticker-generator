@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let latestSticker = null;
     let customFontBytes = null;
   
-    fetch("Sentient.ttf")
+    fetch("Sentient-Regular.ttf")
       .then((res) => res.arrayBuffer())
       .then((fontBytes) => {
         customFontBytes = fontBytes;
