@@ -103,6 +103,8 @@ document.addEventListener("DOMContentLoaded", () => {
       width: pageWidth,
       height: pageHeight,
       color: rgb(252 / 255, 204 / 255, 44 / 255),
+      borderColor: rgb(0, 0, 0), // Black border
+      borderWidth: 1,
     });
 
     let embeddedImage;
