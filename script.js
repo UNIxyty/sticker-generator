@@ -24,7 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const personasKods = document.getElementById("personasKods").value;
     const amats = document.getElementById("amats").value;
     const ligumaNumurs = document.getElementById("ligumaNumurs").value;
-    const ligumaDatums = document.getElementById("ligumaDatums").value;
+    const rawDate = document.getElementById("ligumaDatums").value;
+    const [year, month, day] = rawDate.split("-");
+    const ligumaDatums = `${day}/${month}/${year}`;
     const fotoInput = document.getElementById("foto");
 
     if (!fotoInput.files[0]) {
