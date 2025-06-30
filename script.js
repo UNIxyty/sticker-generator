@@ -8,6 +8,17 @@ document.addEventListener("DOMContentLoaded", () => {
   let latestSticker = null;
   let customFontBytes = null;
 
+  // Load Flatpickr CSS and JS dynamically
+  const flatpickrCSS = document.createElement("link");
+  flatpickrCSS.rel = "stylesheet";
+  flatpickrCSS.href = "https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css";
+  document.head.appendChild(flatpickrCSS);
+
+  const flatpickrScript = document.createElement("script");
+  flatpickrScript.src = "https://cdn.jsdelivr.net/npm/flatpickr";
+  document.head.appendChild(flatpickrScript);
+
+  // Load custom font
   fetch("Sentient-Regular.otf")
     .then((res) => res.arrayBuffer())
     .then((fontBytes) => {
@@ -17,6 +28,13 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Neizdevās ielādēt fontu Sentient.ttf. Pārliecinies, ka fails ir pieejams.");
     });
 
+  // Initialize Flatpickr after it loads
+  flatpickrScript.onload = () => {
+    flatpickr("#ligumaDatums", {
+      dateFormat: "d/m/Y", // dd/mm/yyyy
+    });
+  };
+
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -24,9 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const personasKods = document.getElementById("personasKods").value;
     const amats = document.getElementById("amats").value;
     const ligumaNumurs = document.getElementById("ligumaNumurs").value;
-    const rawDate = document.getElementById("ligumaDatums").value;
-    const [year, month, day] = rawDate.split("-");
-    const ligumaDatums = `${day}/${month}/${year}`;
+    const ligumaDatums = document.getElementById("ligumaDatums").value;
     const fotoInput = document.getElementById("foto");
 
     if (!fotoInput.files[0]) {
@@ -105,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
       width: pageWidth,
       height: pageHeight,
       color: rgb(252 / 255, 204 / 255, 44 / 255),
-      borderColor: rgb(0, 0, 0), // Black border
+      borderColor: rgb(0, 0, 0),
       borderWidth: 1,
     });
 
